@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise classroom 13</title>
+</head>
+<body>
+    <script>
+        const name = prompt("enter your name complet:")
+        document.body.innerHTML = `Your name is ${name}<br />`;
+        document.body.innerHTML += `Your name have ${name.length} letters <br />`;
+        document.body.innerHTML += `The second letter of your name is: ${name[1]}<br />`;
+        document.body.innerHTML += `What is the first index of letter a in your name: ${name.indexOf("a")}<br />`;
+        document.body.innerHTML += `What is the last index of letter a in your name: ${name.lastIndexOf("a")}<br />`;
+        document.body.innerHTML += `The lasts three letters of your name is: ${name.slice(-3)}<br />`;
+        document.body.innerHTML += `The words of your name is ${name.split(" ")}<br />`;
+        document.body.innerHTML += `Your name with uppercase ${name.toUpperCase()}<br />`;
+        document.body.innerHTML += `Your name with lowercase ${name.toLowerCase()}<br />`;
+        
+    </script>
+</body>
+</html>
