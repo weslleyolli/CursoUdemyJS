@@ -2,7 +2,7 @@
 logic operators
 && -> AND (All expressions need be true for return true)
 || -> OR (only one expression need be true for return true)
-! -> NOT
+! -> NOT (transforming the value in reverse)
 */
 
 const user = "weslley";
@@ -16,3 +16,5 @@ if (login === true) {
 } else {
     console.log("login denied")
 }
+
+console.log(!true)// == false
