@@ -16,5 +16,3 @@ if (login === true) {
 } else {
     console.log("login denied")
 }
-
-console.log(!true)// == false
