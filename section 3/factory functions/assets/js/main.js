@@ -9,6 +9,7 @@ function createCalculator() {
         },
 
         pressesBackSpace() {
+            //hit the delete button and it clears everything
             this.display.addEventListener('keydown', e => {
                 if (e.keyCode === 8) {
                     e.preventDefault();
@@ -18,6 +19,8 @@ function createCalculator() {
         },
 
         pressesEnter() {
+            
+            //press the enter button and calculate the count
             this.display.addEventListener('keyup', e => {
                 if (e.keyCode === 13) {
                     this.performsAccount();
@@ -26,6 +29,7 @@ function createCalculator() {
         },
 
         performsAccount() {
+            //accuse errors
             let account = this.display.value;
 
             try {
