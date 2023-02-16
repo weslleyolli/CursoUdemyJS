@@ -33,7 +33,7 @@ class ValidCpf {
       return digit <= 9 ? String(digit) : '0';
     }
   
-    valida() {
+    valid() {
       if(!this.cleanCpf) return false;
       if(typeof this.cleanCpf !== 'string') return false;
       if(this.cleanCpf.length !== 11) return false;
@@ -47,8 +47,8 @@ class ValidCpf {
   let validCpf = new ValidCpf('070.987.720-03');
   // ValidCpf = new ValidCpf('999.999.999-99');
   
-  if (validCpf.valida()) {
-    console.log('CPF válido');
-  } else {
-    console.log('CPF inválido');
-  }
+  //if (validCpf.valid()) {
+    //console.log('CPF válido');
+  //} else {
+    //console.log('CPF inválido');
+  //}
