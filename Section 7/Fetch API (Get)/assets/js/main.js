@@ -1,3 +1,4 @@
+/*
 const request = obj => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -13,6 +14,7 @@ const request = obj => {
         })
     })
 }
+*/
 
 document.addEventListener('click', e => {
     const el = e.target;
@@ -25,20 +27,18 @@ document.addEventListener('click', e => {
 });
 
 async function LoadingPage(el) {
-    const href = el.getAttribute('href')
-
-    const objConfig = {
-        method: 'GET',
-        url: href,
-    }
-
     try {
-        const response = await request(objConfig)
-        loadResult(response)
-    } catch(e) {
+        const href = el.getAttribute('href')
+        const response = await fetch(href)
+    
+        if (response.status!== 200) throw new Error('ERROR 404')
+        
+        const html = await response.text()
+        loadResult(html)
+    }
+    catch (e) {
         console.log(e)
     }
-
 }
 
 const loadResult = response => {
@@ -49,7 +49,7 @@ const loadResult = response => {
 
 fetch('pag 1.html')
     .then(asnwer => {
-        if(asnwer.status !== 200) throw new Error('ERROR 404 NOSSO')
+        if (asnwer.status !== 200) throw new Error('ERROR 404 NOSSO')
         return asnwer.text()
     })
     .then(html => console.log(html))
