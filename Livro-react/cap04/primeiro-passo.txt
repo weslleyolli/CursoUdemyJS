@@ -1,0 +1,12 @@
+// src  >  App.js
+<div className="App">
+  <header className="topo">Topo</header>
+  <main className="principal">Principal</main>
+  <footer className="rodape">Rodapé</footer>
+</div
+
+<Fragment>
+  <header className="topo">Topo</header>
+  <main className="principal">Principal</main>
+  <footer className="rodape">Rodapé</footer>
+</Fragment>

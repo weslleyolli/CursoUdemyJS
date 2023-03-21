@@ -1,0 +1,52 @@
+// src > App.js
+import React, { useState } from "react";
+import EntradaDado from "./components/EntradaDado";
+import SaidaDado from "./components/SaidaDado";
+import "./App.css";
+
+const App = () => {
+  const [username, setUsername] = useState("Mauricio");
+  return (
+    <>
+      <EntradaDado username={username} setUsername={setUsername} />
+      <SaidaDado username={username} />
+    </>
+  );
+};
+
+export default App;
+
+=========================================
+// src > components > EntradaDados.js
+import React from "react";
+
+const EntradaDado = ({ username, setUsername }) => {
+  return (
+    <input
+      type="text"
+      placeholder="Seu nome"
+      defaultValue={username}
+      onChange={(e) => setUsername(e.target.value)}
+    />
+  );
+};
+
+export default EntradaDado;
+=================================
+import React from "react";
+
+const SaidaDado = () => {
+  return <h1>Seja bem-vindo: {username}</h1>;
+};
+
+export default SaidaDado;
+
+
+
+
+
+
+
+
+
+

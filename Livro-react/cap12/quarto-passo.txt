@@ -1,0 +1,92 @@
+// src > components > TemperatureConverter.js
+
+  const handleConverter = () => {
+    const resultCelsius = document.querySelector("#celsius-temp");
+    const resultFarhrenheit = document.querySelector("#fahrenheit-temp");
+    const resultKelvin = document.querySelector("#kelvin-temp");
+
+===========================================================
+if (fromTemp === "C") {
+  ...
+  resultCelsius.insertAdjacentHTML("afterbegin", celsiusTemperature);
+  resultFarhrenheit.insertAdjacentHTML("afterbegin", fahrenheitTemperature);
+  resultKelvin.insertAdjacentHTML("afterbegin", kelvinTemperature);
+}
+
+if (fromTemp === "F") {
+  ...
+  resultCelsius.insertAdjacentHTML("afterbegin", celsiusTemperature);
+  resultFarhrenheit.insertAdjacentHTML("afterbegin", fahrenheitTemperature);
+  resultKelvin.insertAdjacentHTML("afterbegin", kelvinTemperature);
+}
+
+if (fromTemp === "K") {
+  ...
+  resultCelsius.insertAdjacentHTML("afterbegin", celsiusTemperature);
+  resultFarhrenheit.insertAdjacentHTML("afterbegin", fahrenheitTemperature);
+  resultKelvin.insertAdjacentHTML("afterbegin", kelvinTemperature);
+}
+====================================
+const TemperatureConverter = () => {
+  let [temperature, setTemperature] = useState("");
+  const userSelect = document.querySelector("#user-choice");
+  const teclas = document.querySelectorAll(".tecla");
+  const resultados = document.querySelectorAll(".result");
+...
+====================================
+const handleConverter = () => {
+...
+  // Desabilita o campo seleção da unidade de temperatura após conversão
+  userSelect.setAttribute("disabled", true);
+
+  // Desabilita as teclas (exceto "Nova conversão") após conversão
+  [].map.call(teclas, (el) => {
+  return el.setAttribute("disabled", true);
+});
+...
+======================================
+<div className="reset tecla" onClick={() => handleReset()}>
+  Nova conversão
+</div>
+=====================================
+  const handleReset = () => {
+    // Habilita teclas
+    [].map.call(teclas, (el) => {
+      return el.removeAttribute("disabled");
+    });
+    // Remove resultados da conversão
+    [].map.call(resultados, (el) => {
+      if (el.hasChildNodes()) {
+        return el.removeChild(el.firstChild);
+      }
+    });
+    // Habilita campo de seleção da unidade de medida da temperatura
+    userSelect.removeAttribute("disabled");
+    setTemperature("");
+  };
+===================================
+  const handleConverter = () => {
+    // Se usuário entrar -0 corrige para 0
+    if (temperature === "-0") {
+      setTemperature("0");
+    }
+===================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+src > App.js
+...
+import { useState, useEffect } from "react";
+
+...
+  useEffect(() => {
+    document.title = `Título: ${nome}`;
+    console.log("Página renderizada");
+  });
+...
+================================
+useEffect(() => {
+    document.title = `Título: ${nome}`;
+    console.log("Página renderizada");
+  }, []);
+

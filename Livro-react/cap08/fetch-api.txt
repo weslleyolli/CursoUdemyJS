@@ -1,0 +1,13 @@
+  componentDidMount() {
+    fetch("/api/livrosFrontend.json")
+      .then(response => response.json())
+      .then(livros => this.setState({ livros }))
+      .catch(function(error) {
+        document
+          .querySelectorAll("main")[0]
+          .insertAdjacentHTML("beforeend", "<p>Mensagem de erro</p>");
+      })
+      .finally(function() {
+        console.log("Sempre retorna");
+      });
+  }

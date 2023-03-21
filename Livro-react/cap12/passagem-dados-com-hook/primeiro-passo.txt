@@ -1,0 +1,85 @@
+// public > index.html
+
+<html lang="pt-br">
+<head>
+...
+<meta name="description" content="Passagem de dados com hooks" />
+...
+<title>React App | Passagem de dados com hooks</title>
+</head>
+<body>
+<noscript>Para que essa aplicação funcione JavaScript deve estar habilitado.</noscript>
+...
+=================================
+// components > EntradaDado.js
+import React from "react";
+
+const EntradaDado = () => {
+  return <input type="text" placeholder="Seu nome" />;
+};
+
+export default EntradaDado;
+=================================
+// src > components > SaidaDado.js
+import React from "react";
+
+const SaidaDado = () => {
+  return <h1>Seja bem-vindo: Seu nome</h1>;
+};
+
+export default SaidaDado;
+=================================
+// src > App.js
+import React from "react";
+import EntradaDado from "./components/EntradaDado";
+import SaidaDado from "./components/SaidaDado";
+import "./App.css";
+
+const App = () => {
+  return (
+    <>
+      <EntradaDado />
+      <SaidaDado />
+    </>
+  );
+};
+
+export default App;
+====================================
+// src > app.css
+#root {
+  font: 20px sans-serif;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+#root input {
+  font: inherit;
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  padding-left: 10px;
+}
+#root h1 {
+  font-size: 30px;
+  margin-top: 50px;
+  padding-left: 10px;
+}
+=====================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

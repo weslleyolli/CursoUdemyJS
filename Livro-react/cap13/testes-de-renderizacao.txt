@@ -1,0 +1,45 @@
+import { render, screen } from "@testing-library/react";
+import ListaLivros from "./ListaLivros";
+
+describe("Testes de renderização", () => {
+  test("texto Lista de Livros", () => {
+    render(<ListaLivros />);
+    const linkElement = screen.getByText(/lista de livros/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test("input para o título do livro", () => {
+    render(<ListaLivros />);
+    const elInput = screen.getByLabelText("Insira um livro:", {
+      selector: "input",
+    });
+    expect(elInput).toBeInTheDocument();
+  });
+
+  test("botão Salvar", () => {
+    render(<ListaLivros />);
+    const elBotao = screen.getByTestId("salvar");
+    expect(elBotao).toBeInTheDocument();
+  });
+});
+=====================================
+<button type="submit" id="salvar" data-testid="salvar">
+  Salvar
+</button>
+=====================================
+  test("render options", () => {
+    const { container } = render(<ListaLivros />);
+    console.log(container.innerHTML);
+  });
+=====================================
+import { render, screen } from "@testing-library/react";
+import ListaLivros from "./ListaLivros";
+
+describe("Outro arquivo de teste", () => {
+  test("renderização texto xpto", () => {
+    render(<ListaLivros />);
+    const linkElement = screen.getByText(/xpto/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+});
+=====================================

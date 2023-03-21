@@ -1,0 +1,40 @@
+// CÓDIGOS DO CAPÍTULO 3 - Quinto passo
+
+// src > App.js
+...
+handleRemoverLinha = ( ) => console.log("Botão clicado");
+  render() {
+...
+...
+<TabelaBody
+  livros={this.state.livros}
+  removerLinha={this.handleRemoverLinha}
+/>   
+...
+
+// src > components > TabelaBody.js
+...
+const TabelaBody = (props) => (
+...
+onClick={ ( ) => props.removerLinha() }
+...
+
+// src > App.js
+handleRemoverLinha = id => {
+  const livros = this.state.livros.filter(l => l.id !== id);
+  this.setState({ livros });
+};
+
+//src > App.js
+handleRemoverLinha = id => {
+  const livros = this.state.livros.filter(l => l.id !== id);
+  this.setState({ livros });
+};
+
+// src > components > TabelaBody.js
+<button
+  className="botao remover"
+  onClick={() => props.removerLinha(livro.id)}
+  id={livro.id}
+  
+>

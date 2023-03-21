@@ -1,0 +1,601 @@
+// PRIMEIRO PASSO
+// src > components > Menu.js
+import React from 'react';
+
+const Menu = props => {
+  return (
+    <nav className="menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+      </ul>
+    </div>
+  );
+}
+
+export default Menu;
+
+
+src > components > TabelaLivros.js
+import React from "react";
+const TabelaLivros = () => {
+  return (
+    <div className="livros">
+      <h1>Tabela de livros</h1>
+      <table className="tabela">
+        <thead>
+          <tr>
+            <th width="17%">ISBN</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th width="7%"></th>
+            <th width="9%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ISBN do livro</td>
+            <td>Título do livro</td>
+            <td>Autor do livro</td>
+            <td>
+              <button className="botao editar">Editar</button>
+            </td>
+            <td>
+              <button className="botao remover">Remover</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default TabelaLivros;
+
+
+
+
+// src > App.js
+import React, { Component } from "react";
+import Menu from "./components/Menu";
+import TabelaLivros from "./components/TabelaLivros";
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Menu />
+        <TabelaLivros />
+      </div>
+    );
+  }
+}
+export default App;
+
+
+
+
+
+// SEGUNDO PASSO
+// src > components > TabelaLivros.js
+import React, { Component } from "react";
+import Menu from "./components/Menu";
+import TabelaLivros from "./components/TabelaLivros";
+
+class App extends Component {
+class App extends Component {
+state = {
+  livros: [
+    {
+      id: 1,
+      isbn: "978-85-7522-403-8",
+      titulo: "HTML5 - 2ª Edição",
+      autor: "Maurício Samy Silva"
+    },
+    {
+      id: 2,
+      isbn: "978-85-7522-807-4",
+      titulo: "Introdução ao Pentest",
+      autor: "Daniel Moreno"
+    },
+    {
+      id: 3,
+      isbn: "978-85-7522-780-8",
+      titulo: "Internet das Coisas para Desenvolvedores",
+      autor: "Ricardo da Silva Ogliari"
+    }
+  ]
+};
+  render() {
+    return (
+     <div className="App">
+      <Menu />
+      <TabelaLivros livros={this.state.livros} />
+     </div>
+    );
+  }
+};
+
+export default App;
+
+
+// TERCEIRO PASSO
+// src > components > CadastrarLivros.js
+import React, { Component } from "react";
+
+class CadastrarLivros extends Component {
+  render() {
+    return (
+      <form>
+        <h1>Cadastrar livro</h1>
+        <p>
+          <label htmlFor="fisbn">
+            ISBN: Formato - (
+            <span style={{ color: "red" }}> 978-85-7522-xxx-x </span>)
+          </label>
+          <input type="text" autoFocus id="fisbn" required 
+            pattern= "^978-85-7522-[0-9]{3}-[0-9]{1}$" />
+        </p>
+        <p>
+          <label htmlFor="ftitulo">Título</label>
+          <input type="text" id="ftitulo" required />
+        </p>
+        <p>
+          <label htmlFor="fautor">Autor</label>
+          <input type="text" id="fautor" required />
+        </p>
+        <p>
+          <button type="submit" className="botao cadastrar">
+            Cadastrar
+          </button>
+        </p>
+      </form>
+    );
+  }
+};
+
+export default CadastrarLivros;
+
+
+
+src > components > NotFound.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const NotFound = () => (
+  <>
+    <h1>404!</h1>
+    <p>
+      Lamento. Essa página não existe ou foi removida <br />
+      <Link to="/">Votar para Tabela de livros</Link>
+    </p>
+  </>
+);
+
+export default NotFound;
+
+
+
+src > App.js
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Menu from "./components/Menu";
+import TabelaLivros from "./components/TabelaLivros";
+import CadastrarLivros from "./components/CadastrarLivros";
+import NotFound from "./components/NotFound";
+
+class App extends Component {
+  state = {
+    livros: [
+    {
+      id: 1,
+      isbn: "978-85-7522-403-8",
+      titulo: "HTML5 - 2ª Edição",
+      autor: "Maurício Samy Silva"
+    },
+    {
+      id: 2,
+      isbn: "978-85-7522-807-4",
+      titulo: "Introdução ao Pentest",
+      autor: "Daniel Moreno"
+    },
+    {
+      id: 3,
+      isbn: "978-85-7522-780-8",
+      titulo: "Internet das Coisas para Desenvolvedores",
+      autor: "Ricardo da Silva Ogliari"
+    }
+  ]
+  };
+  render() {
+    return (
+      <Router>
+        <Menu />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <TabelaLivros livros={this.state.livros} />}
+          />
+          <Route exact path="/cadastrar" render={() => <CadastrarLivros />} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    );
+  }
+};
+
+export default App;
+
+
+
+// QUARTO PASSO
+// src > App.js
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Menu from "./components/Menu";
+import TabelaLivros from "./components/TabelaLivros";
+import CadastrarLivros from "./components/CadastrarLivros";
+import NotFound from "./components/NotFound";
+
+class App extends Component {
+  state = {
+    livros: [
+      {
+        id: 1,
+        isbn: "978-85-7522-403-8",
+        titulo: "HTML5 - 2ª Edição",
+        autor: "Maurício Samy Silva",
+      },
+      {
+        id: 2,
+        isbn: "978-85-7522-807-4",
+        titulo: "Introdução ao Pentest",
+        autor: "Daniel Moreno",
+      },
+      {
+        id: 3,
+        isbn: "978-85-7522-780-8",
+        titulo: "Internet das Coisas para Desenvolvedores",
+        autor: "Ricardo da Silva Ogliari",
+      },
+    ],
+  };
+
+  inserirLivro = (livro) => {
+    livro.id = this.state.livros.length + 1;
+    this.setState({
+      livros: [...this.state.livros, livro],
+    });
+  };
+
+  render() {
+    return (
+      <Router>
+        <Menu />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <TabelaLivros livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/cadastrar"
+            render={() => (
+              <CadastrarLivros
+                inserirLivro={this.inserirLivro}
+                livro={{ id: 0, isbn: "", titulo: "", autor: "" }}
+              />
+            )}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+export default App;
+
+
+
+
+src > Components > CadastrarLivros.js
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+
+class CadastrarLivros extends Component {
+  state = {
+    livro: {
+      id: this.props.livro.id,
+      isbn: this.props.livro.isbn,
+      titulo: this.props.livro.titulo,
+      autor: this.props.livro.autor,
+    },
+    redirecionar: false,
+  };
+  handleLivroForm = (e) => {
+    e.preventDefault();
+    this.props.inserirLivro(this.state.livro);
+    this.setState({ redirecionar: true });
+  };
+  render() {
+    if (this.state.redirecionar === true) {
+      return <Redirect to="/" />;
+    }
+    return (
+      <form onSubmit={this.handleLivroForm}>
+        <h1>Cadastrar livro</h1>
+        <p>
+          <label htmlFor="fisbn">
+            ISBN: Formato - (
+            <span style={{ color: "red" }}> 978-85-7522-xxx-x </span>)
+          </label>
+          <input
+            type="text"
+            autoFocus
+            defaultValue={this.props.isbn}
+            id="fisbn"
+            required
+            pattern="^978-85-7522-[0-9]{3}-[0-9]{1}$"
+            value={this.state.livro.isbn}
+            onChange={(e) =>
+              this.setState({
+                livro: {
+                  ...this.state.livro,
+                  isbn: e.target.value,
+                },
+              })
+            }
+          />
+        </p>
+        <p>
+          <label htmlFor="ftitulo">Título</label>
+          <input
+            type="text"
+            defaultValue={this.props.titulo}
+            ref="titulo"
+            id="ftitulo"
+            required
+            value={this.state.livro.titulo}
+            onChange={(e) =>
+              this.setState({
+                livro: {
+                  ...this.state.livro,
+                  titulo: e.target.value,
+                },
+              })
+            }
+          />
+        </p>
+        <p>
+          <label htmlFor="fautor">Autor</label>
+          <input
+            type="text"
+            defaultValue={this.props.autor}
+            ref="autor"
+            id="fautor"
+            required
+            value={this.state.livro.autor}
+            onChange={(e) =>
+              this.setState({
+                livro: {
+                  ...this.state.livro,
+                  autor: e.target.value,
+                },
+              })
+            }
+          />
+        </p>
+        <p>
+          <button type="submit" className="botao cadastrar">
+            Cadastrar
+          </button>
+        </p>
+      </form>
+    );
+  }
+}
+
+export default CadastrarLivros;
+
+
+// QUINTO PASSO
+// src > components > TabelaLivros.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const TabelaLivros = ({ livros }) => {
+  return (
+    <div className="livros">
+      <h1>Tabela de livros</h1>
+      {livros.length === 0 && <h2>Nenhum livro cadastrado!</h2>}
+      {livros.length > 0 && (
+        <table className="tabela">
+          <thead>
+            <tr>
+              <th width="17%">ISBN</th>
+              <th>Título</th>
+              <th>Autor</th>
+              <th width="7%"></th>
+              <th width="9%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {livros.map((livro) => (
+              <tr key={livro.isbn}>
+                <td>{livro.isbn}</td>
+                <td>{livro.titulo}</td>
+                <td>{livro.autor}</td>
+                <td>
+                  <button className="botao editar">
+                    <Link to={`/editar/${livro.isbn}`}>Editar</Link>
+                  </button>
+                </td>
+                <td>
+                  <button className="botao remover">Remover</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
+
+export default TabelaLivros;
+
+
+
+
+
+src > App.js (Primeira alteração)
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Menu from "./components/Menu";
+import TabelaLivros from "./components/TabelaLivros";
+import CadastrarLivros from "./components/CadastrarLivros";
+import NotFound from "./components/NotFound";
+
+class App extends Component {
+  state = {
+    livros: [
+      {
+        id: 1,
+        isbn: "978-85-7522-403-8",
+        titulo: "HTML5 - 2ª Edição",
+        autor: "Maurício Samy Silva",
+      },
+      {
+        id: 2,
+        isbn: "978-85-7522-807-4",
+        titulo: "Introdução ao Pentest",
+        autor: "Daniel Moreno",
+      },
+      {
+        id: 3,
+        isbn: "978-85-7522-780-8",
+        titulo: "Internet das Coisas para Desenvolvedores",
+        autor: "Ricardo da Silva Ogliari",
+      },
+    ],
+  };
+
+  inserirLivro = (livro) => {
+    livro.id = this.state.livros.length + 1;
+    this.setState({
+      livros: [...this.state.livros, livro],
+    });
+  };
+
+  render() {
+    return (
+      <Router>
+        <Menu />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <TabelaLivros livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/cadastrar"
+            render={() => (
+              <CadastrarLivros
+                inserirLivro={this.inserirLivro}
+                livro={{ id: 0, isbn: "", titulo: "", autor: "" }}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/editar/:isbnLivro"
+            render={(props) => {
+              const livro = this.state.livros.find(
+                (livro) => livro.isbn === props.match.params.isbnLivro
+              );
+              if (livro) {
+                return (
+                  <CadastrarLivros
+                    editarLivro={this.editarLivro}
+                    livro={livro}
+                  />
+                );
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+export default App;
+
+
+
+// src > App.js ( Segunda Alteração - Acrescentar)
+editarLivro = livro => {
+  const index = this.state.livros.findIndex(p => p.id === livro.id); 
+  const livros = this.state.livros
+    .slice(0, index)
+    .concat(this.state.livros.slice(index + 1));
+  const newLivros = [...livros, livro].sort((a, b) => a.id - b.id); 
+  this.setState({
+    livros: newLivros
+  });
+};
+
+
+
+// src > components > CadastrarLivros ( Alteração da função handleLivroForm )
+  handleLivroForm = (e) => {
+    e.preventDefault();
+    if (this.props.editarLivro) {
+      this.props.editarLivro(this.state.livro);
+    } else {
+      this.props.inserirLivro(this.state.livro);
+    }
+    this.setState({ redirecionar: true });
+  };
+
+
+
+// SEXTO PASSO
+src > components > TabelaLivros.js
+...
+const TabelaLivros = ({ livros, removerLivro }) => {
+  return (
+  ...
+<button className="botao remover"
+  onClick={ () => {
+    removerLivro(livro); }}>
+  Remover
+</button>
+
+    
+src >  App.js
+...
+  removerLivro = livro => {
+    if (window.confirm("Remover esse livro?")) {
+      const livros = this.state.livros.filter(p => p.isbn !== livro.isbn);
+      this.setState({ livros });
+    }
+  };
+...
+<TabelaLivros
+  livros={this.state.livros}
+  removerLivro={this.removerLivro}
+/>
+
+

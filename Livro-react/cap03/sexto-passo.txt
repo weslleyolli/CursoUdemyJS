@@ -1,0 +1,54 @@
+// src > components > TabelaHead.js
+<th>Título
+  <div className="container-setinhas">
+    <div>&#129093;</div>
+    <div>&#129095;</div>
+  </div>
+</th>
+
+// Regras a inserir em index.css
+.container-setinhas {
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.container-setinhas > div { cursor: pointer; }
+
+// src > App.js
+handleOrdenarCrescente = titulo => {
+  const livros = this.state.livros.sort((a, b) =>
+    a.titulo < b.titulo ? -1 : 0
+  );
+  this.setState({ livros });
+  };
+ handleOrdenarDecrescente = titulo => {
+  const livros = this.state.livros.sort((a, b) =>
+    a.titulo < b.titulo ? -1 : 0
+  );
+  livros.reverse();
+  this.setState({ livros });
+  };
+
+<TabelaHead
+  ordenarCrescente={ this.handleOrdenarCrescente }
+  ordenarDecrescente={ this.handleOrdenarDecrescente }
+/>
+
+//src > components > TabelaHead.js
+const TabelaHead = props => (
+<thead>
+<tr>
+...
+...
+<th>
+  Título
+  <div className="container-setinhas">
+    <div onClick={ ( ) => props.ordenarCrescente( ) }>&#129093; </div>
+    <div onClick={ ( ) => props.ordenarDecrescente( ) }>&#129095;</div>
+  </div>
+</th>
+...
+
+

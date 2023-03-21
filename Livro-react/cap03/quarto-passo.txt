@@ -1,0 +1,42 @@
+// CÓDIGOS DO CAPÍTULO 3 - Quarto passo
+
+// src > App.js
+
+<TabelaFoot qdeLivros = { this.state.livros.length } />
+
+// src > components > TabelaFoot.js
+
+//...
+const TabelaFoot = props => (
+  <tfoot>
+    <tr>
+      <td colSpan="4">Quantidade de livros na tabela: { props.qdeLivros }</td>
+    </tr>
+  </tfoot>
+//...
+
+//App.js
+
+//...
+class App extends Component {
+state = {
+  livros: [] // Retire o que estava aqui
+};
+// A seguir insira o seguinte
+componentDidMount() {
+  fetch("/api/livros.json")
+    .then(response => response.json())
+    .then(livros => this.setState({ livros }))
+    .catch(function(error) {
+      console.log("Erro na requisição");
+    })
+    .finally(function() {
+      console.log("Sempre retorna");
+    });
+  }
+// A seguir não altere
+render () {
+	return()
+//...
+
+

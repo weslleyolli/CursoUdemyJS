@@ -1,0 +1,260 @@
+// Logo.js
+import React from "react";
+
+const Logo = () => {
+  return (
+    <a href="#">
+      <h1 className="logo">
+        <span>Editora MaujorTec</span>
+      </h1>
+    </a>
+  );
+};
+
+export default Logo;
+
+
+
+
+
+
+// App.js
+import React from "react";
+import Logo from "./components/Logo";
+
+const App = () => {
+  return <Logo />;
+};
+
+export default App;
+
+// Navegacao.js
+import React from "react";
+
+const Navegacao = () => {
+  return (
+    <ul>
+      <li>
+        <a href="#">Home</a>
+      </li>
+      <li>
+        <a href="#">Fronted</a>
+      </li>
+      <li>
+        <a href="#">Programacao</a>
+      </li>
+      <li>
+        <a href="#">Design</a>
+      </li>
+      <li>
+        <a href="#">Catálogo</a>
+      </li>
+    </ul>
+  );
+};
+
+export default Navegacao;
+
+
+
+
+// App.js
+import React from "react";
+import Logo from "./components/Logo";
+import Navegacao from "./components/Navegacao";
+
+const App = () => {
+  return (
+    <>
+      <Logo />
+      <Navegacao />
+    </>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+// Topo.js
+import React from "react";
+import Logo from "./Logo";
+import Navegacao from "./Navegacao";
+
+const Topo = () => {
+  return (
+    <header className="topo">
+      <Logo />
+      <Navegacao />
+    </header>
+  );
+};
+
+export default Topo;
+
+
+
+
+
+
+
+
+// App.js
+import React from "react";
+import Topo from "./components/Topo";
+
+const App = () => {
+  return <Topo />;
+};
+
+export default App;
+
+
+
+
+
+
+
+// Principal.js
+import React from "react";
+import Home from "./Home";
+
+const Principal = () => {
+  return (
+    <main className="principal">
+      <Home />
+    </main>
+  );
+};
+
+export default Principal;
+
+
+
+
+
+
+// Home.js
+import React from "react";
+
+const Home = () => {
+  return (
+    <>
+      <h2>Últimos lançamentos</h2>
+      <div className="card">
+        <div className="thumb">
+          <img src="imagens/capas/9788575228142.jpg" alt="" />
+        </div>
+        <div className="detalhes">
+          <h3>Padrões para Kubernetes</h3>
+             <p>O modo como os ...</p>
+          <a href="#">Leia mais ></a>
+        </div>
+        </div>
+      <div className="card">
+        <div className="thumb">
+          <img src="imagens/capas/9788575228074.jpg" alt="" />
+        </div>
+        <div className="detalhes">
+          <h3>Introdução ao Pentest – 2ª Edição</h3>
+          <p>Introdução ao Pentest...</p>
+          <a href="#">Leia mais ></a>
+        </div>
+      </div>
+    </>
+
+  );
+};
+
+export default Home;
+
+
+
+
+
+
+// App.js
+import React from "react";
+import Topo from "./components/Topo";
+import Principal from "./components/Principal";
+
+const App = () => {
+  return (
+    < >
+      <Topo />
+      <Principal />
+    </>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+// Rodape.js
+import React from "react";
+
+const Rodape = () => {
+  return (
+    <footer className="rodape">
+      <p>
+        Conteúdos cedidos pela Editora Novatec &#8212; &copy; Copyright 2020
+      </p>
+    </footer>
+  );
+}
+
+export default Rodape;
+
+
+
+
+
+
+// App.js
+import React, { Fragment } from "react";
+import Topo from "./components/Topo ";
+import Principal from "./components/Principal ";
+import Rodape from "./components/Rodape";
+
+const App = () => {
+  return (
+    <>
+      <Topo />
+      <Principal />
+      <Rodape />
+    </>
+  );
+}
+
+export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

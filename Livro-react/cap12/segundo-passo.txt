@@ -1,0 +1,28 @@
+// src > components > TemperatureConverter
+
+  const handleTemperature = (valorTecla) => {
+    // Impede entrada de mais de um ponto decimal
+    if (valorTecla === "." && temperature.includes(".")) {
+      return false;
+    }
+    // Permite entrada do sinal negativo somente no início do campo
+    if (valorTecla === "-" && temperature === "") {
+      setTemperature(valorTecla);
+      return true;
+    }
+    // Acrescenta um zero depois do ponto se o usuário omití-lo
+    if (valorTecla === "." && (temperature === "" || temperature === "-")) {
+      setTemperature(temperature + "0.");
+      return true;
+    }
+    // Permite entrada valores outros que não ponto e sinal negativo
+    if (valorTecla !== "-") {
+      setTemperature(temperature + valorTecla);
+      return true;
+    }
+
+  };
+
+
+
+   

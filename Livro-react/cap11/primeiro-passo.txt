@@ -1,0 +1,22 @@
+// src > App.js
+import Header from "./components/Header";
+...
+<Header />
+
+// scr > components > Header.js
+const Header = (props) => {
+...
+<li>
+  <Link to="/login">Login</Link>
+</li>
+<li>
+  <button
+    className="btnLink"
+    onClick={(event) => {
+    }}
+  >
+    Logout
+  </button>
+</li>
+...
+export default Header;

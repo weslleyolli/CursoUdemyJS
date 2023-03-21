@@ -1,0 +1,195 @@
+// src > components > Login.js
+import React, { Component } from "react";
+
+export default class Login extends Component {
+  state = {
+    email: "",
+    password: "",
+  };
+  handleLogin = (e) => {
+    e.preventDefault();
+    console.log(this.state.email, this.state.password);
+  };
+  render() {
+    return (
+      <form className="container" name="login" onSubmit={this.handleLogin}>
+        <p>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            onChange={(e) => this.setState({ email: e.target.value })}
+          />
+        </p>
+        <p>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            onChange={(e) => this.setState({ password: e.target.value })}
+          />
+        </p>
+        <p>
+          <button
+            type="submit"
+            disabled={!this.state.email && !this.state.password}
+          >
+            Login
+          </button>
+        </p>
+      </form>
+    );
+  }
+}
+
+// src > App.js
+...
+import Login from "./components/Login";
+...
+          <Route exact path="/login" render={() => <Login />} /> // Insira essa rota entre as rotas cadastrar e editar
+
+// src > components > tabelaHome.js
+import React from "react";
+
+const TabelaHome = ({ livros }) => {
+  return (
+    <div className="livros">
+      <h1>Tabela de livros</h1>
+      {livros.length === 0 && <h2>Nenhum livro cadastrado!</h2>}
+      {livros.length > 0 && (
+        <table className="tabela">
+          <thead>
+            <tr>
+              <th width="27%">ISBN</th>
+              <th>Título</th>
+              <th>Autor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {livros.map((livro) => (
+              <tr key={livro.isbn}>
+                <td>{livro.isbn}</td>
+                <td>{livro.titulo}</td>
+                <td>{livro.autor}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
+
+export default TabelaHome;
+
+// src > App.js
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Header from "./components/Header";
+import TabelaLivros from "./components/TabelaLivros";
+import TabelaHome from "./components/TabelaHome";
+import CadastrarLivros from "./components/CadastrarLivros";
+import Login from "./components/Login";
+import NotFound from "./components/NotFound";
+import SimpleStorage from "react-simple-storage";
+
+class App extends Component {
+  state = {
+    livros: [],
+    isAuthenticated: false,
+  };
+
+  inserirLivro = (livro) => {
+    livro.id = this.state.livros.length + 1;
+    this.setState({
+      livros: [...this.state.livros, livro],
+    });
+  };
+
+  editarLivro = (livro) => {
+    const index = this.state.livros.findIndex((p) => p.id === livro.id);
+    const livros = this.state.livros
+      .slice(0, index)
+      .concat(this.state.livros.slice(index + 1));
+    const newLivros = [...livros, livro].sort((a, b) => a.id - b.id);
+    this.setState({
+      livros: newLivros,
+    });
+  };
+
+  removerLivro = (livro) => {
+    if (window.confirm("Remover esse livro?")) {
+      const livros = this.state.livros.filter((p) => p.isbn !== livro.isbn);
+      this.setState({ livros });
+    }
+  };
+
+  componentDidMount() {
+    this.setState({
+      isAuthenticated: false,
+    });
+  }
+
+  render() {
+    return (
+      <Router>
+        <SimpleStorage parent={this} />
+        <Header />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() =>
+              this.state.isAuthenticated === false ? (
+                <TabelaHome livros={this.state.livros} />
+              ) : (
+                <TabelaLivros
+                  livros={this.state.livros}
+                  removerLivro={this.removerLivro}
+                />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/cadastrar"
+            render={() => (
+              <CadastrarLivros
+                inserirLivro={this.inserirLivro}
+                livro={{ id: 0, isbn: "", titulo: "", autor: "" }}
+              />
+            )}
+          />
+          <Route exact path="/login" render={() => <Login />} />
+          <Route
+            exact
+            path="/editar/:isbnLivro"
+            render={(props) => {
+              const livro = this.state.livros.find(
+                (livro) => livro.isbn === props.match.params.isbnLivro
+              );
+              if (livro) {
+                return (
+                  <CadastrarLivros
+                    editarLivro={this.editarLivro}
+                    livro={livro}
+                  />
+                );
+              } else {
+                return <Redirect to="/" />;
+              }
+            }}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    );
+  }
+}
+
+export default App;
+
+

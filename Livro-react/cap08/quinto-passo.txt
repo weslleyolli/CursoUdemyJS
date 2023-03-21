@@ -1,0 +1,323 @@
+// src > App.js
+// Alterações das três etapas
+import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Topo from "./components/Topo";
+import Home from "./components/Home";
+import Frontend from "./components/Frontend";
+import Programacao from "./components/Programacao";
+import Design from "./components/Design";
+import Catalogo from "./components/Catalogo";
+import Rodape from "./components/Rodape";
+import NotFound from "./components/NotFound";
+import Livro from "./components/Livro";
+import axios from "axios";
+
+class App extends Component {
+  state = {
+    livros: [],
+  };
+  async componentDidMount() {
+    try {
+      const { data: livros } = await axios.get("/api/todosOsLivros.json");
+      this.setState({ livros });
+    } catch (error) {
+      console.log(error);
+      document
+        .querySelectorAll(".principal")[0]
+        .insertAdjacentHTML(
+          "beforeend",
+          "<p class='erro'>Mensagem de erro</p>"
+        );
+    }
+  }
+  render() {
+    return (
+      <Router>
+        <Topo />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <Home livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/frontend"
+            render={() => <Frontend livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/programacao"
+            render={() => <Programacao livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/design"
+            render={() => <Design livros={this.state.livros} />}
+          />
+          <Route
+            exact
+            path="/catalogo"
+            render={() => <Catalogo livros={this.state.livros} />}
+          />
+          <Route
+            path="/livro/:livroSlug"
+            render={(props) => {
+              const livro = this.state.livros.find(
+                (livro) => livro.slug === props.match.params.livroSlug
+              );
+              if (livro) return <Livro livro={livro} />;
+              else return <NotFound />;
+            }}
+          />
+          <Route component={NotFound} />
+        </Switch>
+        <Rodape />
+      </Router>
+    );
+  }
+}
+
+export default App;
+
+
+
+
+
+// src > componentes > Livro.js
+import React from "react";
+
+const Livro = ({ livro }) => (
+  <main className="principal">
+    <div className="pag-livro">
+      <h2>{livro.titulo}</h2>
+      <div className="livro">
+        <img
+          src={"/imagens/capas/" + livro.id + ".jpg"}
+          alt="Thumbnail da capa do livro ..."
+        />
+        <ul>
+          <li>ISBN: {livro.isbn}</li>
+          <li>Ano: {livro.ano}</li>
+          <li>Páginas: {livro.paginas}</li>
+          <li>Preço: R${livro.preco},00</li>
+        </ul>
+        <hr />
+        <h3>Descrição do livro</h3>
+        <p>{livro.descricao}</p>
+      </div>
+    </div>
+  </main>
+);
+
+export default Livro;
+
+
+
+
+// src > components > Home.js
+import React from "react";
+import { Link } from "react-router-dom";
+const Home = ({ livros }) => (
+  <main className="principal">
+    <h2>Últimos lançamentos</h2>
+    {livros
+      .filter((n, index) => index < 6)
+      .map(livro => (
+        <div className="card" key={livro.id}>
+          <div className="thumb">
+            <img
+              src={"/imagens/capas/" + livro.isbn.replace(/-/g, "") + ".jpg"}
+              alt="Thumbnail da capa do livro ..." />
+          </div>
+          {livros
+            .filter(c => c.slug === livro.slug)
+            .map(livro => (
+                <Link to={`/livro/${livro.slug}`} key={livro.id}>
+                  {
+                    <div className="detalhes">
+                      <h3>{livro.titulo}</h3>
+                      <p>{livro.descricao.slice(0, 130) + "..."}</p>
+                      <p>Leia mais &gt;</p>
+                    </div>
+                  }
+                </Link>
+            ))}
+        </div>
+      ))}
+  </main>
+);
+
+export default Home;
+
+
+
+// src > components > Catalogo.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Catalogo = ({ livros }) => {
+  return (
+      <main className="principal">
+        <h2>Categoria frontend</h2>
+        <ol>
+          {livros
+            .filter(livro => livro.categoria === "frontend")
+            .map(livro => (
+              <li key={livro.id}>
+                <Link to={`/livro/${livro.slug}`}>{livro.titulo}</Link>
+              </li>
+            ))}
+        </ol>
+        <h2>Categoria programação</h2>
+        <ol>
+          {livros
+            .filter(livro => livro.categoria === "programacao")
+            .map(livro => (
+              <li key={livro.id}>
+                <Link to={`/livro/${livro.slug}`}>{livro.titulo}</Link>
+              </li>
+            ))}
+        </ol>
+        <h2>Categoria design</h2>
+        <ol>
+          {livros
+            .filter(livro => livro.categoria === "design")
+            .map(livro => (
+              <li key={livro.id}>
+                <Link to={`/livro/${livro.slug}`}>{livro.titulo}</Link>
+              </li>
+            ))}
+        </ol>
+      </main>
+  );
+};
+export default Catalogo;
+
+
+
+
+// src > components > Frontend.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Frontend = ({ livros }) => (
+  <main className="principal">
+    <h2>Categoria frontend</h2>
+    {livros
+      .filter(cat => cat.categoria === "frontend")
+      .map(livro => (
+        <div className="card" key={livro.id}>
+          <div className="thumb">
+            <img
+              src={"/imagens/capas/" + livro.id + ".jpg"}
+              alt="Thumbnail da capa do livro ..."
+            />
+          </div>
+          {livros
+            .filter(c => c.slug === livro.slug)
+            .map(livro => (
+              <span key={livro.slug}>
+                <Link to={`/livro/${livro.slug}`}>
+                  {
+                    <div className="detalhes">
+                      <h3>{livro.titulo}</h3>
+                      <p>{livro.descricao.slice(0, 130) + "..."}</p>
+                      <p>Leia mais &gt;</p>
+                    </div>
+                  }
+                </Link>
+              </span>
+            ))}
+        </div>
+      ))}
+  </main>
+);
+
+export default Frontend;
+
+
+// src > components > Programacao.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Programacao = ({ livros }) => (
+  <main className="principal">
+    <h2>Categoria Programacao</h2>
+    {livros
+      .filter((cat) => cat.categoria === "programacao")
+      .map((livro) => (
+        <div className="card" key={livro.id}>
+          <div className="thumb">
+            <img
+              src={"/imagens/capas/" + livro.id + ".jpg"}
+              alt="Thumbnail da capa do livro ..."
+            />
+          </div>
+          {livros
+            .filter((c) => c.slug === livro.slug)
+            .map((livro) => (
+              <span key={livro.slug}>
+                <Link to={`/livro/${livro.slug}`}>
+                  {
+                    <div className="detalhes">
+                      <h3>{livro.titulo}</h3>
+                      <p>{livro.descricao.slice(0, 130) + "..."}</p>
+                      <p>Leia mais &gt;</p>
+                    </div>
+                  }
+                </Link>
+              </span>
+            ))}
+        </div>
+      ))}
+  </main>
+);
+
+export default Programacao;
+
+
+
+
+// src > components > Design.js
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Design = ({ livros }) => (
+  <main className="principal">
+    <h2>Categoria Design</h2>
+    {livros
+      .filter((cat) => cat.categoria === "design")
+      .map((livro) => (
+        <div className="card" key={livro.id}>
+          <div className="thumb">
+            <img
+              src={"/imagens/capas/" + livro.id + ".jpg"}
+              alt="Thumbnail da capa do livro ..."
+            />
+          </div>
+          {livros
+            .filter((c) => c.slug === livro.slug)
+            .map((livro) => (
+              <span key={livro.slug}>
+                <Link to={`/livro/${livro.slug}`}>
+                  {
+                    <div className="detalhes">
+                      <h3>{livro.titulo}</h3>
+                      <p>{livro.descricao.slice(0, 130) + "..."}</p>
+                      <p>Leia mais &gt;</p>
+                    </div>
+                  }
+                </Link>
+              </span>
+            ))}
+        </div>
+      ))}
+  </main>
+);
+
+export default Design;
+
+
+ 

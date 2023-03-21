@@ -1,0 +1,42 @@
+import React, { useState } from "react";
+
+const App = () => {
+  const [username, setUsername] = useState("Maujor");
+
+  return (
+    <div>
+
+      <EntradaDado username={username} setUsername={setUsername} />
+      <SaidaDado username={username} />
+    </div>
+  );
+};
+
+const EntradaDado = ({ username, setUsername } ) => {
+  return (
+<input
+  type="text"
+  defaultValue={username}
+  onChange={(e) => setUsername(e.target.value)}
+/>
+  )};
+
+const SaidaDado = ({ username }) => {
+  return <h1> {username}</h1>;
+};
+
+export default App;
+
+
+
+
+
+PASS src/App.test.js (8.925 s)
+  √ Renderização do link para aprenda React (47 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        16.92 s
+Ran all test suites related to changed files.
+
